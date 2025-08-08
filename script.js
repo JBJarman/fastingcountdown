@@ -33,11 +33,10 @@ function updateCountdown(end) {
 }
 
 function updateProgress(now, start, end) {
-  const progressBar = document.querySelector('#progress');
   const total = end - start;
   const done = now - start;
   const percent = Math.min((done / total) * 100, 100);
-  progressBar.innerHTML = `<div style="position: absolute; left: 0; top: 0; height: 100%; width: ${percent}%; background: #28a745;"></div>`;
+  document.getElementById('progress-bar').style.width = `${percent}%`;
 }
 
 function showBenefits(hours) {
