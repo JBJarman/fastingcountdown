@@ -76,5 +76,6 @@ function updateBenefits(startTime = null) {
 
 // Show default benefit list on page load
 document.addEventListener('DOMContentLoaded', () => {
-  updateBenefits(); 
+  updateBenefits();
 });
+
