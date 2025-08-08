@@ -3,6 +3,9 @@ let intervalId;
 function calculateFast() {
   const start = new Date(document.getElementById('start-time').value);
   const end = new Date(document.getElementById('end-time').value);
+    if (end <= start) {
+    end.setDate(end.getDate() + 1);
+  }
 
   if (isNaN(start) || isNaN(end) || end <= start) {
     alert("Please enter valid start and end times.");
