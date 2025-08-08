@@ -14,19 +14,17 @@ function calculateFast() {
 
   const now = new Date();
 
-  // ✅ If fast is already over, show results instantly
   if (end <= now) {
     document.getElementById('countdown').textContent = `You fasted for ${hours}h ${minutes}m. Great job!`;
-    updateProgress(end, start, end); // Full progress bar
-    showBenefits(hours);
+    updateProgress(end, start, end);
+    showBenefits(hours, start);
     return;
   }
 
-  // ✅ If fast is still ongoing, start countdown
   updateCountdown(end);
   setInterval(() => updateCountdown(end), 1000);
   updateProgress(now, start, end);
-  showBenefits(hours);
+  showBenefits(hours, start);
 }
 
 function updateCountdown(end) {
@@ -51,34 +49,31 @@ function updateProgress(now, start, end) {
   document.getElementById('progress-bar').style.width = `${percent}%`;
 }
 
-function showBenefits(hours) {
+function showBenefits(hoursFasted, startTime = null) {
   const benefits = [
-    { hour: 8, text: "Blood sugar stabilizes" },
-    { hour: 12, text: "Insulin drops, fat burning starts" },
-    { hour: 16, text: "Ketosis begins" },
-    { hour: 18, text: "Human growth hormone increases" },
-    { hour: 24, text: "Autophagy starts (cell cleanup)" },
-    { hour: 36, text: "Deeper cellular repair" },
-    { hour: 48, text: "Immune system reset & stem cell growth" },
+    { hour: 8, title: "Blood sugar stabilizes", details: "Your insulin levels begin to normalize, improving metabolic health and reducing cravings." },
+    { hour: 12, title: "Fat burning begins", details: "Your body depletes glycogen stores and starts breaking down fat for energy." },
+    { hour: 16, title: "Ketosis begins", details: "Your liver produces ketones from fat, which your brain and muscles use for energy." },
+    { hour: 18, title: "Human growth hormone increases", details: "HGH can increase up to 5x, supporting fat loss and muscle preservation." },
+    { hour: 24, title: "Autophagy starts", details: "Cells begin cleaning out damaged components, reducing inflammation and aging risk." },
+    { hour: 36, title: "Deeper cellular repair", details: "Repair processes accelerate; your body recycles old immune cells and enhances mitochondrial function." },
+    { hour: 48, title: "Immune system reset", details: "Stem cell regeneration begins, and the immune system undergoes a powerful reset." },
   ];
 
-  let html = "<strong>Benefits Unlocked:</strong><ul>";
+  let html = "<strong>Fasting Timeline:</strong><ul>";
   benefits.forEach(b => {
-    if (hours >= b.hour) {
-      html += `<li><b>${b.hour}h:</b> ${b.text}</li>`;
+    let benefitTime = "";
+    if (startTime) {
+      const benefitStart = new Date(startTime.getTime() + b.hour * 3600000);
+      benefitTime = benefitStart.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      html += `<li><b>${benefitTime} – ${b.title}:</b> ${b.details}</li>`;
+    } else {
+      html += `<li><b>${b.hour}h – ${b.title}:</b> ${b.details}</li>`;
     }
   });
   html += "</ul>";
 
-  const next = benefits.find(b => hours < b.hour);
-  if (next) {
-    html += `<p><em>Fast ${next.hour - hours} more hour(s) to reach: <b>${next.text}</b></em></p>`;
-  } else {
-    html += `<p><em>You've unlocked all major fasting benefits!</em></p>`;
-  }
-
   document.getElementById('benefits').innerHTML = html;
 }
-
   document.getElementById('benefits').innerHTML = html;
 }
