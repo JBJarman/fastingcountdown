@@ -17,14 +17,14 @@ function calculateFast() {
   if (end <= now) {
     document.getElementById('countdown').textContent = `You fasted for ${hours}h ${minutes}m. Great job!`;
     updateProgress(end, start, end);
-    showBenefits(hours, start);
+    updateBenefits(start);
     return;
   }
 
   updateCountdown(end);
   setInterval(() => updateCountdown(end), 1000);
   updateProgress(now, start, end);
-  showBenefits(hours, start);
+  updateBenefits(start);
 }
 
 function updateCountdown(end) {
@@ -49,31 +49,32 @@ function updateProgress(now, start, end) {
   document.getElementById('progress-bar').style.width = `${percent}%`;
 }
 
-function showBenefits(hoursFasted, startTime = null) {
+function updateBenefits(startTime = null) {
   const benefits = [
-    { hour: 8, title: "Blood sugar stabilizes", details: "Your insulin levels begin to normalize, improving metabolic health and reducing cravings." },
-    { hour: 12, title: "Fat burning begins", details: "Your body depletes glycogen stores and starts breaking down fat for energy." },
-    { hour: 16, title: "Ketosis begins", details: "Your liver produces ketones from fat, which your brain and muscles use for energy." },
-    { hour: 18, title: "Human growth hormone increases", details: "HGH can increase up to 5x, supporting fat loss and muscle preservation." },
+    { hour: 8, title: "Blood sugar stabilizes", details: "Insulin levels begin to normalize, improving metabolic health and reducing cravings." },
+    { hour: 12, title: "Fat burning begins", details: "The body depletes glycogen stores and starts breaking down fat for energy." },
+    { hour: 16, title: "Ketosis begins", details: "The liver produces ketones from fat, which the brain and muscles use for energy." },
+    { hour: 18, title: "Human growth hormone increases", details: "HGH increases up to 5x, helping with fat loss and muscle retention." },
     { hour: 24, title: "Autophagy starts", details: "Cells begin cleaning out damaged components, reducing inflammation and aging risk." },
-    { hour: 36, title: "Deeper cellular repair", details: "Repair processes accelerate; your body recycles old immune cells and enhances mitochondrial function." },
-    { hour: 48, title: "Immune system reset", details: "Stem cell regeneration begins, and the immune system undergoes a powerful reset." },
+    { hour: 36, title: "Deeper cellular repair", details: "Repair processes accelerate; the body recycles old immune cells and enhances function." },
+    { hour: 48, title: "Immune system reset", details: "Stem cell regeneration begins and the immune system undergoes a powerful reset." },
   ];
 
   let html = "<strong>Fasting Timeline:</strong><ul>";
   benefits.forEach(b => {
-    let benefitTime = "";
+    let prefix = `${b.hour}h`;
     if (startTime) {
-      const benefitStart = new Date(startTime.getTime() + b.hour * 3600000);
-      benefitTime = benefitStart.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      html += `<li><b>${benefitTime} – ${b.title}:</b> ${b.details}</li>`;
-    } else {
-      html += `<li><b>${b.hour}h – ${b.title}:</b> ${b.details}</li>`;
+      const benefitTime = new Date(startTime.getTime() + b.hour * 3600000);
+      prefix = benefitTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
+    html += `<li><b>${prefix} – ${b.title}:</b> ${b.details}</li>`;
   });
   html += "</ul>";
 
   document.getElementById('benefits').innerHTML = html;
 }
-  document.getElementById('benefits').innerHTML = html;
-}
+
+// Show default benefit list on page load
+document.addEventListener('DOMContentLoaded', () => {
+  updateBenefits(); 
+});
