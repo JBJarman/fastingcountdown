@@ -1,6 +1,7 @@
 function calculateFast() {
   const start = new Date(document.getElementById('start-time').value);
   const end = new Date(document.getElementById('end-time').value);
+
   if (isNaN(start) || isNaN(end) || end <= start) {
     alert("Please enter valid start and end times.");
     return;
@@ -12,9 +13,18 @@ function calculateFast() {
   document.getElementById('duration').textContent = `Total Fast: ${hours}h ${minutes}m`;
 
   const now = new Date();
+
+  // ✅ If fast is already over, show results instantly
+  if (end <= now) {
+    document.getElementById('countdown').textContent = `You fasted for ${hours}h ${minutes}m. Great job!`;
+    updateProgress(end, start, end); // Full progress bar
+    showBenefits(hours);
+    return;
+  }
+
+  // ✅ If fast is still ongoing, start countdown
   updateCountdown(end);
   setInterval(() => updateCountdown(end), 1000);
-
   updateProgress(now, start, end);
   showBenefits(hours);
 }
@@ -22,10 +32,12 @@ function calculateFast() {
 function updateCountdown(end) {
   const now = new Date();
   const remaining = end - now;
+
   if (remaining <= 0) {
     document.getElementById('countdown').textContent = "Fast Complete!";
     return;
   }
+
   const h = Math.floor(remaining / 1000 / 60 / 60);
   const m = Math.floor((remaining / 1000 / 60) % 60);
   const s = Math.floor((remaining / 1000) % 60);
@@ -64,6 +76,9 @@ function showBenefits(hours) {
   } else {
     html += `<p><em>You've unlocked all major fasting benefits!</em></p>`;
   }
+
+  document.getElementById('benefits').innerHTML = html;
+}
 
   document.getElementById('benefits').innerHTML = html;
 }
