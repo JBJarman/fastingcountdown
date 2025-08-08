@@ -57,14 +57,22 @@ button:hover {
   overflow: hidden;
 }
 
-#progress::after {
-  content: "";
-  display: block;
+#progress {
+  margin: 1rem 0;
+  height: 10px;
+  background: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+#progress-bar {
   height: 100%;
-  background: #28a745;
   width: 0%;
+  background: #28a745;
   transition: width 0.5s ease;
 }
+
 
 #benefits {
   margin-top: 1rem;
