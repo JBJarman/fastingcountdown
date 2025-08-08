@@ -1,18 +1,21 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f0f4f8;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #f0fff4 0%, #e6f7ff 100%);
   color: #333;
   margin: 0;
   padding: 2rem;
+  min-height: 100vh;
+  background-attachment: fixed;
 }
 
 .container {
-  max-width: 700px;
+  max-width: 800px;
   margin: auto;
-  background: white;
+  background: rgba(255,255,255,0.8);
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
 }
 
 h1 {
@@ -22,12 +25,26 @@ h1 {
 .inputs {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
 }
 
+.inputs label {
+  font-weight: bold;
+}
+
+.inputs input[type="datetime-local"],
+.inputs button {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
 .results {
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 #progress {
@@ -53,4 +70,29 @@ h1 {
 
 .benefits li {
   margin: 0.5rem 0;
+}
+
+.ad-placeholder {
+  background: #fff3cd;
+  border: 1px dashed #ffeeba;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.cta {
+  background: #e8f5e9;
+  border: 1px solid #c8e6c9;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #666;
 }
