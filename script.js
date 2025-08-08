@@ -1,3 +1,5 @@
+let intervalId;
+
 function calculateFast() {
   const start = new Date(document.getElementById('start-time').value);
   const end = new Date(document.getElementById('end-time').value);
@@ -6,6 +8,8 @@ function calculateFast() {
     alert("Please enter valid start and end times.");
     return;
   }
+
+  clearInterval(intervalId); // clear previous timer
 
   const msDiff = end - start;
   const hours = Math.floor(msDiff / 1000 / 60 / 60);
@@ -18,13 +22,15 @@ function calculateFast() {
     document.getElementById('countdown').textContent = `You fasted for ${hours}h ${minutes}m. Great job!`;
     updateProgress(end, start, end);
     updateBenefits(start);
+    document.getElementById('reset-btn').style.display = 'inline-block';
     return;
   }
 
   updateCountdown(end);
-  setInterval(() => updateCountdown(end), 1000);
+  intervalId = setInterval(() => updateCountdown(end), 1000);
   updateProgress(now, start, end);
   updateBenefits(start);
+  document.getElementById('reset-btn').style.display = 'inline-block';
 }
 
 function updateCountdown(end) {
@@ -33,6 +39,7 @@ function updateCountdown(end) {
 
   if (remaining <= 0) {
     document.getElementById('countdown').textContent = "Fast Complete!";
+    clearInterval(intervalId);
     return;
   }
 
@@ -74,8 +81,17 @@ function updateBenefits(startTime = null) {
   document.getElementById('benefits').innerHTML = html;
 }
 
-// Show default benefit list on page load
+function resetCountdown() {
+  document.getElementById('start-time').value = '';
+  document.getElementById('end-time').value = '';
+  document.getElementById('duration').textContent = '';
+  document.getElementById('countdown').textContent = '';
+  document.getElementById('progress-bar').style.width = '0%';
+  document.getElementById('reset-btn').style.display = 'none';
+  clearInterval(intervalId);
+  updateBenefits(); // reset benefits to show hours
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   updateBenefits();
 });
-
