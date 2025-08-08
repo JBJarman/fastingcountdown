@@ -3,16 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Fasting Countdown</title>
+  <meta name="description" content="Track your intermittent fasting progress with our easy‑to‑use countdown timer and learn the health benefits at each stage.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
+  <header class="hero">
     <h1>Fasting Countdown</h1>
+    <p>Track your fasting journey and discover the benefits as you progress.</p>
+  </header>
+  <main class="container">
     <div class="inputs">
       <label for="start-time">Start Time:</label>
-      <input type="datetime-local" id="start-time">
+      <input type="datetime-local" id="start-time" name="start-time">
       <label for="end-time">End Time:</label>
-      <input type="datetime-local" id="end-time">
+      <input type="datetime-local" id="end-time" name="end-time">
       <button onclick="calculateFast()">Start Countdown</button>
       <button onclick="resetCountdown()" id="reset-btn" style="display:none;">Reset</button>
     </div>
@@ -22,7 +28,16 @@
       <div id="progress"><div id="progress-bar"></div></div>
     </div>
     <div id="benefits" class="benefits"></div>
-  </div>
+    <div class="ad-placeholder">
+      Advertise or support us here.
+    </div>
+    <div class="cta">
+      <p>Enjoying this tool? Support us by <a href="#" target="_blank">buying us a coffee</a> or <a href="#" target="_blank">subscribing to our newsletter</a> for more fasting tips.</p>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>&copy; 2025 Fasting Countdown. All rights reserved.</p>
+  </footer>
   <script src="script.js"></script>
 </body>
 </html>
