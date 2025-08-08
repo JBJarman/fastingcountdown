@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Fasting Countdown</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>Fasting Countdown</h1>
-
-    <div class="input-group">
-      <label for="start-time">When did you stop eating?</label>
-      <input type="datetime-local" id="start-time" />
-
-      <label for="end-time">When will you eat again?</label>
-      <input type="datetime-local" id="end-time" />
-
+    <div class="inputs">
+      <label for="start-time">Start Time:</label>
+      <input type="datetime-local" id="start-time">
+      <label for="end-time">End Time:</label>
+      <input type="datetime-local" id="end-time">
       <button onclick="calculateFast()">Start Countdown</button>
     </div>
-
     <div class="results">
       <h2 id="duration"></h2>
       <h3 id="countdown"></h3>
-
       <div id="progress"><div id="progress-bar"></div></div>
-      <div id="benefits"></div>
     </div>
+    <div id="benefits" class="benefits"></div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
